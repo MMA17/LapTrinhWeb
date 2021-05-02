@@ -1,6 +1,6 @@
 <?php
-    $server_username = "root";
-    $server_password ="";
+    $server_username = "hoangviet";
+    $server_password ="123456";
     $server_host = "localhost";
     $server_dbname = "ltweb";
 
