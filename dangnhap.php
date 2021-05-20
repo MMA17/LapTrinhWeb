@@ -73,10 +73,6 @@ session_start();
               </div>';
             }
             else {
-                '<div class="alert alert-success alert-dismissible fade show" style="position: fixed;">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                Đăng nhập thành công!!!
-                </div>';
                 $result = mysqli_fetch_array($check);
                 $_SESSION['name'] = $result['name'];
                 $_SESSION['phonenum'] = $result['phonenum'];

@@ -42,8 +42,10 @@
 </head>
 
 <body>
+    
+
     <!-- Pre Loader -->
-    <div class="load"">
+    <div class="load">
         <img src="images/loader.gif">
     </div>
 
@@ -113,9 +115,9 @@
                     }
                     ?>
                 </ul>
-                <form action="timkiem.php" class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" id="searchBox" type="search" placeholder="Nhập tên thí sinh" aria-label="Search">
-                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Tìm kiếm</button>
+                <form action="timkiem.php" class="form-inline my-2 my-lg-0" method="POST">
+                    <input class="form-control mr-sm-2" id="searchBox" name="searchBox" type="search" placeholder="Nhập tên thí sinh" aria-label="Search" required>
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" name="btn_submit">Tìm kiếm</button>
                 </form>
             </div>
     </nav>
@@ -140,20 +142,27 @@
     <?php 
         require_once("connection.php");
         // Phan trang cho website
-        $result = mysqli_query($conn, 'select count(username) as total from users');
-        $row = mysqli_fetch_assoc($result);
-        $total_records = $row['total'];
-        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $limit = 9;
-        $total_page = ceil($total_records / $limit);
-        if ($current_page > $total_page){
-            $current_page = $total_page;
+        if (isset($_POST["btn_submit"])) {
+            $searchValue = $_POST["searchBox"];
+            $result = mysqli_query($conn, 'SELECT count(username) as total from users WHERE name LIKE "%' . $searchValue . '%"');
+            $row = mysqli_fetch_assoc($result);
+            $total_records = $row['total'];
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $limit = 9;
+            $total_page = ceil($total_records / $limit);
+            if ($current_page > $total_page){
+                $current_page = $total_page;
+            }
+            else if ($current_page < 1){
+                $current_page = 1;
+            }
+            $start = ($current_page - 1) * $limit;
+            $result = mysqli_query($conn, 'SELECT * FROM users WHERE name LIKE "%' . $searchValue . '%" LIMIT ' . $start . ', ' . $limit);
         }
-        else if ($current_page < 1){
-            $current_page = 1;
+        else {
+            echo'Cant connect DB';
         }
-        $start = ($current_page - 1) * $limit;
-        $result = mysqli_query($conn, "SELECT * FROM users LIMIT $start, $limit");
+        
  
     ?>
     <div class="container row m-auto" >
