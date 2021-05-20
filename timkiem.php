@@ -134,7 +134,8 @@
                 $current_page = 1;
             }
             $start = ($current_page - 1) * $limit;
-            $result = mysqli_query($conn, 'SELECT * FROM users WHERE name LIKE "%' . $searchValue . '%" LIMIT ' . $start . ', ' . $limit);
+            $result = mysqli_query($conn, 'SELECT users.username, users.name, users.bio, images.path,images.votes FROM users INNER JOIN images ON users.userid=images.userid 
+                                            WHERE name LIKE "%' . $searchValue . '%" LIMIT ' . $start . ', ' . $limit);
         }
         else {
             echo'Cant connect DB';
@@ -152,7 +153,7 @@
                     // echo "<h5>Kết quả tìm kiếm cho: " . $searchValue . "</h5>";
                     while ($row = mysqli_fetch_array($result)) {
                         echo '<div class="card border-light col-md-4 bg-white mt-3">';
-                        echo "<img class=\"card-img-top myImg\" src=\"" . $row['image'] . "\" style=\"width: 100%; height: 400px\">";
+                        echo "<img class=\"card-img-top myImg\" src=\"" . $row['path'] . "\" style=\"width: 100%; height: 400px\">";
                         echo '<div class="card-body">';
                         echo '<h4>' . $row['name'] . '</h4>';
                         echo '<p class="card-text">Cô bạn sinh năm 1999 này từng quen mặt trên mạng xã hội sau bức ảnh "chân khoèo bá đạo" hồi 2014.</p>';
