@@ -16,29 +16,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="./js/javascript.js"></script>
-    <style>
-        .social {
-            position: fixed;
-            top: 50%;
-            -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
-            z-index: 2;
-        }
-
-        .social a {
-            display: block;
-            text-align: center;
-            padding: 16px;
-            transition: all 0.3s ease;
-            color: white;
-            font-size: 20px;
-            background-color: #dc3545;
-        }
-        .social a:hover {
-            background-color: #c91e1e;
-        }
-    </style>
 </head>
 
 <body>
@@ -169,17 +146,20 @@
             <?php
             // Render ra users trong db
                 if (!$result) {
-                    echo "Không connect được DB " . mysqli_error($conn);
+                    echo "<h5>Không tìm được thí sinh nào!</h5>";
                 }
-                while ($row = mysqli_fetch_array($result)) {
-                    echo '<div class="card border-light col-md-4 bg-white mt-3">';
-                    echo "<img class=\"card-img-top myImg\" src=\"" . $row['image'] . "\" style=\"width: 100%; height: 400px\">";
-                    echo '<div class="card-body">';
-                    echo '<h4>' . $row['name'] . '</h4>';
-                    echo '<p class="card-text">Cô bạn sinh năm 1999 này từng quen mặt trên mạng xã hội sau bức ảnh "chân khoèo bá đạo" hồi 2014.</p>';
-                    echo '<button class="btn btn-danger vote" data-toggle="modal" data-target="#voteModal">Bình chọn</button>';
-                    echo '<button class="btn btn-light ml-3">' . $row['votes'] . '</button> <span>Bình chọn</span> ';
-                    echo '</div></div>';
+                else {
+                    // echo "<h5>Kết quả tìm kiếm cho: " . $searchValue . "</h5>";
+                    while ($row = mysqli_fetch_array($result)) {
+                        echo '<div class="card border-light col-md-4 bg-white mt-3">';
+                        echo "<img class=\"card-img-top myImg\" src=\"" . $row['image'] . "\" style=\"width: 100%; height: 400px\">";
+                        echo '<div class="card-body">';
+                        echo '<h4>' . $row['name'] . '</h4>';
+                        echo '<p class="card-text">Cô bạn sinh năm 1999 này từng quen mặt trên mạng xã hội sau bức ảnh "chân khoèo bá đạo" hồi 2014.</p>';
+                        echo '<button class="btn btn-danger vote" data-toggle="modal" data-target="#voteModal">Bình chọn</button>';
+                        echo '<button class="btn btn-light ml-3">' . $row['votes'] . '</button> <span>Bình chọn</span> ';
+                        echo '</div></div>';
+                    }
                 }
             ?>
         <!-- <div class="card border-light col-md-4 bg-white mt-3">

@@ -16,29 +16,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="./js/javascript.js"></script>
-    <style>
-        .social {
-            position: fixed;
-            top: 50%;
-            -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
-            z-index: 2;
-        }
-
-        .social a {
-            display: block;
-            text-align: center;
-            padding: 16px;
-            transition: all 0.3s ease;
-            color: white;
-            font-size: 20px;
-            background-color: #dc3545;
-        }
-        .social a:hover {
-            background-color: #c91e1e;
-        }
-    </style>
 </head>
 
 <body>
@@ -113,9 +90,9 @@
                     }
                     ?>
                 </ul>
-                <form action="timkiem.php" class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" id="searchBox" type="search" placeholder="Nhập tên thí sinh" aria-label="Search">
-                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Tìm kiếm</button>
+                <form action="timkiem.php" class="form-inline my-2 my-lg-0" method="POST">
+                    <input class="form-control mr-sm-2" id="searchBox" name="searchBox" type="search" placeholder="Nhập tên thí sinh" aria-label="Search" required>
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" name="btn_submit">Tìm kiếm</button>
                 </form>
             </div>
     </nav>

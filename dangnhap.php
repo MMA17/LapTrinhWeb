@@ -16,29 +16,6 @@ session_start();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="./js/javascript.js"></script>
-    <style>
-        .social {
-            position: fixed;
-            top: 50%;
-            -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
-            z-index: 2;
-        }
-
-        .social a {
-            display: block;
-            text-align: center;
-            padding: 16px;
-            transition: all 0.3s ease;
-            color: white;
-            font-size: 20px;
-            background-color: #dc3545;
-        }
-        .social a:hover {
-            background-color: #c91e1e;
-        }
-    </style>
 </head>
 
 <body>
