@@ -143,10 +143,13 @@ if (!isset($_SESSION['username'])) {
         $name = $_POST["name"];
         $phonenum = $_POST["phonenum"];
         $username =  $_SESSION["username"];
+        $bio = $_POST["bio"];
         $name = addslashes(strip_tags($name));
         $phonenum = addslashes(strip_tags($phonenum));
-        $sql = "UPDATE users SET name = '$name', phonenum = '$phonenum', image = '$target_file' WHERE username = '$username'";
-    mysqli_query($conn, $sql);
+        $sql = "UPDATE users SET name = '$name', phonenum = '$phonenum', image = '$target_file', bio = '$bio' WHERE username = '$username'";
+        mysqli_query($conn, $sql);
+        $sql = "UPDATE images SET image = '$target_file' WHERE username = '$username'";
+        mysqli_query($conn, $sql);
         echo '<div class="alert alert-success alert-dismissible fade show" style="position: fixed;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             Cập nhật thông tin thành công!!!
@@ -187,11 +190,20 @@ if (!isset($_SESSION['username'])) {
         <input type="tel" class="form-control" style="width: 600px;" name="phonenum" id="phonenum" value="<?php echo $_SESSION['phonenum']; ?>" required>
       </div>
       <div class="form-group">
+        <label for="phonenum">Mô tả bản thân:</label>
+        <input type="text" class="form-control" style="width: 600px;" name="bio" id="bio" value="<?php echo $_SESSION['bio']; ?>" required>
+      </div>
+      <div class="form-group">
         <label for="image">Chọn ảnh đại diện:</label>
         <input type="file" class="form-control" style="width: 600px;" name="imageupload" id="imageupload" required>
       </div>
       <div class="form-group" style="text-align: center;">
         <button type="submit" class="btn btn-danger" name="btn_submit">Cập nhật</button>
+        <?php
+        $tempUserName = $_SESSION['username'];
+        if ($tempUserName == 'viet')
+          echo '<a href="admin.php" class="btn btn-danger">Trang quản trị </a>';
+        ?>
         <a href="dangxuat.php" class="btn btn-danger">Đăng Xuất</a>
       </div>
     </form>

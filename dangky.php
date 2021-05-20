@@ -102,6 +102,7 @@ if (isset($_SESSION['username'])) {
                 $password = $_POST["pwd"];
                 $name = $_POST["name"];
                 $phonenum = $_POST["phonenumber"];
+                $bio = $_POST["bio"];
                 if ($username == "" || $password == "" || $name == "" || $phonenum == "") {
                     echo "Không được bỏ trống thông tin!";
                 } else {
@@ -115,11 +116,12 @@ if (isset($_SESSION['username'])) {
                         </div>';
                     } else {
                         $sql = "INSERT INTO users 
-                    (username,password,name,phonenum,image) 
-                    values 
-                    ('$username','$password','$name','$phonenum','$target_file')";
+                        (username,password,name,phonenum,bio) values ('$username','$password','$name','$phonenum','$bio')";
                         mysqli_query($conn, $sql);
-                        echo '<div class="alert alert-success alert-dismissible fade show" style="position: fixed;">
+                        $sql = "INSERT INTO images 
+                        (username,path,votes) values ('$username', '$target_file', '$bio')";
+                        mysqli_query($conn, $sql);
+                        echo '<div class="alert alert-success alert-dismissible fade show" style="position: fixed;z-index=999">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                             Đăng ký tài khoản thành công! <br> Bạn có thể đăng nhập ngay bây giờ.
                             </div>';
@@ -129,7 +131,7 @@ if (isset($_SESSION['username'])) {
         }
     }
     ?>
-    <nav class="navbar sticky-top navbar-expand-lg px-5" style="background-color:#e9ecef">
+    <nav class="navbar navbar-expand-lg px-5" style="background-color:#e9ecef">
             <a href="index.php"><img src="images/logo.png" class="navbar-brand" style="height:70px;width:auto"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fa fa-bars fa-2x"></i>
@@ -166,9 +168,9 @@ if (isset($_SESSION['username'])) {
                     }
                     ?>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" id="searchBox" type="search" placeholder="Nhập tên thí sinh" aria-label="Search">
-                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Tìm kiếm</button>
+                <form action="timkiem.php" class="form-inline my-2 my-lg-0" method="POST">
+                    <input class="form-control mr-sm-2" id="searchBox" name="searchBox" type="search" placeholder="Nhập tên thí sinh" aria-label="Search" required>
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" name="btn_submit">Tìm kiếm</button>
                 </form>
             </div>
     </nav>
@@ -193,6 +195,10 @@ if (isset($_SESSION['username'])) {
             <div class="form-group">
                 <label for="phonmenumber">Số Điện Thoại: </label>
                 <input type="tel" class="form-control" style="width: 600px;" name="phonenumber" id="phonenumber" required>
+            </div>
+            <div class="form-group">
+                <label for="bio">Mô tả về bản thân</label>
+                <input type="text" class="form-control" style="width: 600px;" name="bio" id="bio" required>
             </div>
             <div class="form-group">
                 <label for="image">Chọn ảnh đại diện:</label>

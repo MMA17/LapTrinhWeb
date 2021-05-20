@@ -96,7 +96,7 @@
                 </form>
             </div>
     </nav>
-    <div class="jumbotron"">
+    <div class="jumbotron">
         
         <div class="text-center">
             <h1 class="text-danger"><b>MISS TEEN VIETNAM</b></h1>
@@ -130,7 +130,7 @@
             $current_page = 1;
         }
         $start = ($current_page - 1) * $limit;
-        $result = mysqli_query($conn, "SELECT users.username, users.name, users.bio, images.path, images.votes FROM users INNER JOIN images ON users.userid=images.userid LIMIT $start, $limit");
+        $result = mysqli_query($conn, "SELECT users.username, users.name, users.bio, images.path, images.votes FROM users INNER JOIN images ON users.username=images.username LIMIT $start, $limit");
  
     ?>
     <div class="container row m-auto" >
@@ -139,16 +139,19 @@
                 if (!$result) {
                     echo "Không connect được DB " . mysqli_error($conn);
                 }
-                while ($row = mysqli_fetch_array($result)) {
+                else {
+                    while ($row = mysqli_fetch_array($result)) {
                     echo '<div class="card border-light col-md-4 bg-white mt-3">';
                     echo "<img class=\"card-img-top myImg\" src=\"" . $row['path'] . "\" style=\"width: 100%; height: 400px\">";
                     echo '<div class="card-body">';
                     echo '<h4>' . $row['name'] . '</h4>';
-                    echo '<p class="card-text">Cô bạn sinh năm 1999 này từng quen mặt trên mạng xã hội sau bức ảnh "chân khoèo bá đạo" hồi 2014.</p>';
+                    echo '<p class="card-text">' . $row['bio'] .  '</p>';
                     echo '<button class="btn btn-danger vote" data-toggle="modal" data-target="#voteModal">Bình chọn</button>';
                     echo '<button class="btn btn-light ml-3">' . $row['votes'] . '</button> <span>Bình chọn</span> ';
                     echo '</div></div>';
+                    }
                 }
+                
             ?>
         <!-- <div class="card border-light col-md-4 bg-white mt-3">
             <img class="card-img-top" src="1.png" style="width: 100%;">

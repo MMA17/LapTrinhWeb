@@ -41,19 +41,20 @@ session_start();
             echo"Không được bỏ trống thông tin";
         }
         else {
-            $sql = "select * from users where username = '$username' and password = '$password'";
+            $sql = "SELECT * FROM users,images WHERE users.username=images.username and users.username = '$username' and users.password = '$password'";
             $check = mysqli_query($conn,$sql);
             if (mysqli_num_rows($check) == 0) {
                 echo '<div class="alert alert-danger alert-dismissible fade show" style="position: fixed;">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 Tài khoản hoặc mật khẩu sai!
-              </div>';
+                </div>';
             }
             else {
                 $result = mysqli_fetch_array($check);
                 $_SESSION['name'] = $result['name'];
                 $_SESSION['phonenum'] = $result['phonenum'];
                 $_SESSION['username'] = $username;
+                $_SESSION['bio'] = $result['bio'];
                 $_SESSION['votes'] = $result['votes'];
                 header('Location: index.php');
             }
@@ -97,9 +98,9 @@ session_start();
                     }
                     ?>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" id="searchBox" type="search" placeholder="Nhập tên thí sinh" aria-label="Search">
-                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Tìm kiếm</button>
+                <form action="timkiem.php" class="form-inline my-2 my-lg-0" method="POST">
+                    <input class="form-control mr-sm-2" id="searchBox" name="searchBox" type="search" placeholder="Nhập tên thí sinh" aria-label="Search" required>
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" name="btn_submit">Tìm kiếm</button>
                 </form>
             </div>
     </nav>

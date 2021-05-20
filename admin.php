@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <?php
 session_start();
-if (isset($_SESSION['username'])) {
+$tempUsername = $_SESSION['username'];
+if (!isset($_SESSION['username']) || $tempUsername != 'viet') {
     header('Location: index.php');
 }
 ?>
@@ -87,9 +88,9 @@ if (isset($_SESSION['username'])) {
                     }
                     ?>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" id="searchBox" type="search" placeholder="Nhập tên thí sinh" aria-label="Search">
-                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Tìm kiếm</button>
+                <form action="timkiem.php" class="form-inline my-2 my-lg-0" method="POST">
+                    <input class="form-control mr-sm-2" id="searchBox" name="searchBox" type="search" placeholder="Nhập tên thí sinh" aria-label="Search" required>
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" name="btn_submit">Tìm kiếm</button>
                 </form>
             </div>
     </nav>
@@ -110,7 +111,7 @@ if (isset($_SESSION['username'])) {
         </form>
         <?php
         require_once("connection.php");
-        $query = "SELECT * FROM users";
+        $query = "SELECT * FROM users, images WHERE users.username = images.username";
         $result = mysqli_query($conn, $query);
         if (!$result) {
             printf("Error: %s\n", mysqli_error($connection));
@@ -120,7 +121,7 @@ if (isset($_SESSION['username'])) {
         echo '<thead><tr><th>Tên tài khoản</th><th>Tên thí sinh</th><th>Số điện thoại</th><th>Đường dẫn ảnh</th></tr></thead>';
         echo "<tbody id = \"myTable\" >";
         while ($row = mysqli_fetch_array($result)) {
-            echo "<tr><td>" . $row['username'] . "</td><td>" . $row['name'] . "</td><td>" . $row['phonenum'] . "</td><td>" . $row['image'] . "</td></tr>";
+            echo "<tr><td>" . $row['username'] . "</td><td>" . $row['name'] . "</td><td>" . $row['phonenum'] . "</td><td>" . $row['path'] . "</td></tr>";
         }
         echo "</tbody></table>";
         ?>
