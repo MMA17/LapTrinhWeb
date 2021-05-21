@@ -5,4 +5,5 @@
     $server_dbname = "ltweb2";
 
     $conn = mysqli_connect($server_host,$server_username,$server_password,$server_dbname) or die ("Chưa kết nối được DataBase");
+    mysqli_set_charset($conn, 'UTF8');
 ?>

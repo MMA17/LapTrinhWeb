@@ -8,7 +8,7 @@ if (!isset($_SESSION['username'])) {
 <html>
 
 <head>
-  <title>NEXT TOP MODEL - Tài khoản</title>
+  <title>Thông tin tài khoản</title>
   <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="images/loader.gif">
@@ -169,7 +169,7 @@ if (!isset($_SESSION['username'])) {
   }
   ?>
   <div class="jumbotron text-center">
-    <h1 class="text-danger"><b>NEXT TOP MODEL</b></h1>
+    <h1 class="text-danger"><b>MISS TEEN VIETNAM</b></h1>
     <h2 class="text-danger">Thông tin tài khoản</h2>
   </div>
   <div class="container" style="width: 600px;">

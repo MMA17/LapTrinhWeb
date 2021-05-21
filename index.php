@@ -15,12 +15,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="./js/javascript.js"></script>
+    <script src="js/javascript.js"></script>
 </head>
 
 <body>
     <!-- Pre Loader -->
-    <div class="load"">
+    <div class="load">
         <img src="images/loader.gif">
     </div>
 
@@ -101,13 +101,14 @@
         <div class="text-center">
             <h1 class="text-danger"><b>MISS TEEN VIETNAM</b></h1>
             <p>Chào mừng bạn đến với cuộc thi Next Top Model Việt Nam!!!<br> Bình chọn cho thí sinh bạn yêu thích! Hoặc đăng ký tham gia chương trình ngay.</p>
+
             <a href="./dangky.php"><button class="btn btn-danger mt-3 px-4"><b>Tham gia ngay!</b></button></a>
         </div>
     </div>
     <div class="container">
     <?php 
         if (isset($_SESSION['name'])) {
-            echo "<h5 class='text-danger'> Xin Chào, ";
+            echo "<h5 class='text-danger'style='display:inline-block'> Xin Chào, ";
             echo $_SESSION['name'] . "! ";
             echo "Bạn đang có <b><u>" . $_SESSION['votes'] . "</u></b> lượt bình chọn.";
             echo "</h5>";
@@ -123,17 +124,28 @@
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
         $limit = 9;
         $total_page = ceil($total_records / $limit);
-        if ($current_page > $total_page){
+        if ($current_page > $total_page) {
             $current_page = $total_page;
         }
         else if ($current_page < 1){
             $current_page = 1;
         }
         $start = ($current_page - 1) * $limit;
-        $result = mysqli_query($conn, "SELECT users.username, users.name, users.bio, images.path, images.votes FROM users INNER JOIN images ON users.username=images.username LIMIT $start, $limit");
+        $result = mysqli_query($conn, "SELECT users.username, users.name, users.bio, images.path, images.votes FROM users INNER JOIN images 
+                                        ON users.username=images.username LIMIT $start, $limit");
  
     ?>
-    <div class="container row m-auto" >
+    <div class="container my-3">
+        <form>
+            <select name="users" onchange="showUser(this.value)">
+                    <option value="">Sắp xếp theo:</option>
+                    <option value="1">Số lượt bình chọn tăng dần</option>
+                    <option value="2">Số lượt bình chọn giảm dần</option>
+            </select>
+        </form>
+    </div>
+    <div id="sortVote">
+    <div class="container row m-auto">
             <?php
             // Render ra users trong db
                 if (!$result) {
@@ -153,14 +165,6 @@
                 }
                 
             ?>
-        <!-- <div class="card border-light col-md-4 bg-white mt-3">
-            <img class="card-img-top" src="1.png" style="width: 100%;">
-            <div class="card-body">
-                <h4>Trần Thị Anh Thư</h4>
-                <p class="card-text">Cô bạn sinh năm 1999 này từng quen mặt trên mạng xã hội sau bức ảnh "chân khoèo bá đạo" hồi 2014. </p>
-                <button class="btn btn-danger vote">Bình chọn</button>
-            </div>
-        </div> -->
     </div>
     <div class="pagination my-5" style="margin-left: 48%;">
            <?php 
@@ -181,6 +185,7 @@
             }
            ?>
     </div>
+    </div>
     <script>
         // Image Modal
         var modal = document.getElementById("myModal");
@@ -194,6 +199,20 @@
                 modal.style.display = "block";
                 modalImg.src = this.src;
             }
+        }
+        function showUser(str) {
+        if (str == "") {
+            return;
+        } else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("sortVote").innerHTML = this.responseText;
+            }
+            };
+            xmlhttp.open("GET","sortVote.php?q="+str,true);
+            xmlhttp.send();
+        }
         }
     </script>
 </body>
