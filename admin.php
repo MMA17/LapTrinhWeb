@@ -19,9 +19,14 @@ if (!isset($_SESSION['username']) || $tempUsername != 'viet') {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/javascript.js"></script>
 </head>
 
 <body>
+    <!-- Pre Loader -->
+    <div class="load">
+        <img src="images/loader.gif">
+    </div>
     <div class="social">
         <a href="https://www.facebook.com/MISS-TEEN-VietNam-102237985334298" class="facebook"><i class="fa fa-facebook"></i></a>
         <a href="https://www.facebook.com/MISS-TEEN-VietNam-102237985334298" class="twitter"><i class="fa fa-twitter"></i></a>
