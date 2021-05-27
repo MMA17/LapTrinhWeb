@@ -211,6 +211,7 @@
         js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
+    </script>
     <script>
         // Image Modal
         var modal = document.getElementById("myModal");
