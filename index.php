@@ -170,7 +170,7 @@
            <?php 
            // Danh so cho trang
             if ($current_page > 1 && $total_page > 1){
-                echo '<li class="page-item"><a class="page-link text-danger" href="index.php?page='.($current_page-1).'">Previous</a></li>';
+                echo '<li class="page-item"><a class="page-link text-danger" href="index.php?page='.($current_page-1).'">Trang trước</a></li>';
             }
             for ($i = 1; $i <= $total_page; $i++){
                 if ($i == $current_page){
@@ -181,7 +181,7 @@
                 }
             }
             if ($current_page < $total_page && $total_page > 1){
-                echo '<li class="page-item"><a class="page-link text-danger" href="index.php?page=' . ($current_page+1) . '">Next</a></li>';
+                echo '<li class="page-item"><a class="page-link text-danger" href="index.php?page=' . ($current_page+1) . '">Trang sau</a></li>';
             }
            ?>
     </div>
