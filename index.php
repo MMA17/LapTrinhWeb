@@ -16,6 +16,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="js/javascript.js"></script>
+    <style>
+        .tooltip1 {
+            text-decoration:none;
+            position:relative;
+        }
+        .tooltip1 span {
+            display:none;
+        }
+        .tooltip1:hover span {
+            display:block;
+            position:fixed;
+            overflow:hidden;
+            z-index: 1000;
+        }
+    </style>
 </head>
 
 <body>
@@ -152,15 +167,32 @@
                     echo "Không connect được DB " . mysqli_error($conn);
                 }
                 else {
-                    while ($row = mysqli_fetch_array($result)) {
-                    echo '<div class="card border-light col-md-4 bg-white mt-3">';
-                    echo "<img class=\"card-img-top myImg\" src=\"" . $row['path'] . "\" style=\"width: 100%; height: 400px\">";
-                    echo '<div class="card-body">';
-                    echo '<h4>' . $row['name'] . '</h4>';
-                    echo '<p class="card-text">' . $row['bio'] .  '</p>';
-                    echo '<button class="btn btn-danger vote" data-toggle="modal" data-target="#voteModal">Bình chọn</button>';
-                    echo '<button class="btn btn-light ml-3">' . $row['votes'] . '</button> <span>Bình chọn</span> ';
-                    echo '</div></div>';
+                    while ($row = mysqli_fetch_array($result)) {                    
+                            echo '<div class="card border-light col-md-4 bg-white mt-3">';
+                            echo "<a class='tooltip1'>
+                                <img class=\"card-img-top myImg\" src=\"" . $row['path'] . "\" style=\"width: 100%; height: 400px\">
+                                <span class='tooltip1-span'>
+                                    <div class='text-danger' style='background-color:#fafdff;width:350px;height:400px;border-style: groove;'>
+                                        <h3 class='p-2 text-center'>Bình Luận</h3><hr>
+                                        <div class='p-2'>";
+                                        $uname = $row['username'];
+                                        $res1 = mysqli_query($conn, " SELECT * FROM comments,users WHERE comments.author = users.username AND comments.username = '$uname' ");
+                                        if (mysqli_num_rows($res1) > 0) {
+                                            while ($row1 = mysqli_fetch_array($res1)) {
+                                                echo"<p><b>" . $row1['name'] .": </b>" . $row1['comment'] . "</p>";
+                                            }
+                                        }
+                                            
+                            echo"       </div>
+                                    </div>
+                                </span>
+                                </a>";
+                            echo '<div class="card-body">';
+                            echo '<h4>' . $row['name'] . '</h4>';
+                            echo '<p class="card-text">' . $row['bio'] .  '</p>';
+                            echo '<button class="btn btn-danger vote" data-toggle="modal" data-target="#voteModal">Bình chọn</button>';
+                            echo '<button class="btn btn-light ml-3">' . $row['votes'] . '</button> <span>Bình chọn</span> ';
+                            echo '</div></div>';
                     }
                 }
                 
@@ -227,19 +259,32 @@
             }
         }
         function showUser(str) {
-        if (str == "") {
-            return;
-        } else {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("sortVote").innerHTML = this.responseText;
+            if (str == "") {
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("sortVote").innerHTML = this.responseText;
+                }
+                };
+                xmlhttp.open("GET","sortVote.php?q="+str,true);
+                xmlhttp.send();
             }
+        }
+        var tooltip1Span = document.getElementsByClassName('tooltip1-span');
+        var len = document.getElementsByClassName('tooltip1-span').length;
+        
+            window.onmousemove = function (e) {
+                for (var i = 0; i < len; i++) {
+                var x = e.clientX,
+                    y = e.clientY;
+                tooltip1Span[i].style.top = (y + 20) + 'px';
+                tooltip1Span[i].style.left = (x + 20) + 'px';
+                }
             };
-            xmlhttp.open("GET","sortVote.php?q="+str,true);
-            xmlhttp.send();
-        }
-        }
+        
+        
     </script>
 </body>
 <footer class="container-fluid bg-light">
