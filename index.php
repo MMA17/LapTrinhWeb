@@ -172,14 +172,14 @@
                             echo "<a class='tooltip1'>
                                 <img class=\"card-img-top myImg\" src=\"" . $row['path'] . "\" style=\"width: 100%; height: 400px\">
                                 <span class='tooltip1-span'>
-                                    <div class='text-danger' style='background-color:#fafdff;width:350px;height:400px;border-style: groove;'>
-                                        <h3 class='p-2 text-center'>Bình Luận</h3><hr>
+                                    <div style='background-color:#fafdff;width:350px;height:400px;border-style: groove;'>
+                                        <h3 class='p-3 text-center' style='background-color:#D92121;color:white !important'>Bình Luận</h3>
                                         <div class='p-2'>";
                                         $uname = $row['username'];
                                         $res1 = mysqli_query($conn, " SELECT * FROM comments,users WHERE comments.author = users.username AND comments.username = '$uname' ");
                                         if (mysqli_num_rows($res1) > 0) {
                                             while ($row1 = mysqli_fetch_array($res1)) {
-                                                echo"<p><b>" . $row1['name'] .": </b>" . $row1['comment'] . "</p>";
+                                                echo"<p class='text-danger'><b>" . $row1['name'] .": </b>" . $row1['comment'] . "</p>";
                                             }
                                         }
                                             
