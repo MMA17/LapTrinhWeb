@@ -9,6 +9,6 @@ ADD ./config/httpd/httpd.conf /usr/local/apache2/conf/httpd.conf
 
 EXPOSE 80
 
-ENTRYPOINT ["usr/sbin/httpd"]
+ENTRYPOINT ["/usr/local/apache2/bin/httpd"]
 
 CMD ["-D", "FOREGROUND"]
