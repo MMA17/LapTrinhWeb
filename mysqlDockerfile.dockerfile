@@ -8,6 +8,7 @@ ADD . /home/code
 ADD ./config/mysql/my.cnf /etc/mysql/my.cnf
 
 ENV MYSQL_ROOT_PASSWORD=123456
+ENV ENV MYSQL_DATABASE=ltweb
 ENV MYSQL_USER=viet
 ENV MYSQL_PASSWORD=123456
 

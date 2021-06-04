@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+    apache: 
+        image: "httpd:v5"
+        container_name: web-httpd
+        restart: always
+        hostname: web-httpd
+        networks: 
+            - lamp-network
+        ports: 
+            - "80:80"
+            - "443:443"
+    
+    php:
+        image: "php:v5"
+        container_name: php
+        restart: always
+        hostname: php
+        networks: 
+            - lamp-network
+        
+    mysql:
+        image: "mysql:v5"
+        container_name: mysql
+        hostname: mysql
+        restart: always
+        networks: 
+            - lamp-network
+        
+networks: 
+    lamp-network:
+        driver: bridge
