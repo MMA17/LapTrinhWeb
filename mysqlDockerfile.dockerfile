@@ -13,7 +13,7 @@ ENV MYSQL_PASSWORD=123456
 
 EXPOSE 3306
 
-#ENTRYPOINT ["/usr/sbin/mysqld"]
+ENTRYPOINT ["/usr/sbin/mysqld"]
 
 CMD ["-D", "FOREGROUND"]
 
