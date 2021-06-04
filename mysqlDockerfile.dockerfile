@@ -17,6 +17,6 @@ ENTRYPOINT ["/usr/sbin/mysqld"]
 
 CMD ["-D", "FOREGROUND"]
 
-RUN mysql -uroot -p123456 -e "create database ltweb"
-RUN mysql -uroot -p123456 ltweb < /home/code/initdb.sql
-RUN mysql -uroot -p123456 -e "GRANT ALL PRIVILEGES ON * . * TO 'viet'@'%';"
+#RUN mysql -uroot -p123456 -e "create database ltweb"
+#RUN mysql -uroot -p123456 ltweb < /home/code/initdb.sql
+#RUN mysql -uroot -p123456 -e "GRANT ALL PRIVILEGES ON * . * TO 'viet'@'%';"
