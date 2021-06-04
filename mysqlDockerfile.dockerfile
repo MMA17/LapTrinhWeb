@@ -13,9 +13,9 @@ ENV MYSQL_PASSWORD=123456
 
 EXPOSE 3306
 
-ENTRYPOINT ["/usr/sbin/mysqld"]
+#ENTRYPOINT ["/usr/sbin/mysqld"]
 
-CMD ["-D", "FOREGROUND"]
+#CMD ["-D", "FOREGROUND"]
 
 #RUN mysql -uroot -p123456 -e "create database ltweb"
 #RUN mysql -uroot -p123456 ltweb < /home/code/initdb.sql
