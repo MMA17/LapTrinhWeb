@@ -1,0 +1,10 @@
+php:
+    version: 7.1
+    frontend:
+        name: nginx
+    interpretor:
+        name: fpm
+        options:
+                extensions:
+                - php-mysqli
+    composer: true
